@@ -62,6 +62,21 @@ exports.getMe = asyncHandler(async(req, res, next) => {
     });
 });
 
+// @description    log user out/clear cookie
+// @route          POST /api/v1/auth/logout
+// @access         private
+exports.logout = asyncHandler(async(req, res, next) => {
+    res.cookie('token', 'none', {
+        expires: new Date(Date.now() + 10 * 1000),
+        httpOnly: true
+    });
+
+    res.status(200).json({
+        success: true,
+        data: {}
+    });
+});
+
 // @description    update user details
 // @route          PUT /api/v1/auth/updatedetails
 // @access         private
